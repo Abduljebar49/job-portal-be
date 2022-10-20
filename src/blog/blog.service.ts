@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Blog } from 'src/models/blog.model';
+import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class BlogService {
@@ -19,6 +20,14 @@ export class BlogService {
                 id
             }
         });
+    }
+
+    async findWithKey(key:string):Promise<Blog>{
+        return this.blogModel.findOne({
+            where:{
+                key
+            }
+        })
     }
 
     async remove(id:number):Promise<string>{

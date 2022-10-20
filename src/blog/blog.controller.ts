@@ -14,11 +14,11 @@ import {
 } from '@nestjs/common';
 import { Blog } from 'src/models/blog.model';
 import { BlogService } from './blog.service';
-import { Logger } from '@nestjs/common';
 import { BlogDto } from './dto/blog.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { Logger } from '@nestjs/common';
 
 @Controller('blog')
 export class BlogController {
@@ -32,6 +32,11 @@ export class BlogController {
   @Get(':id')
   findOne(@Param('id') id: number): Promise<Blog> {
     return this.service.findOne(id);
+  }
+
+  @Get('/key/:key')
+  findWithKey(@Param('key') key:string):Promise<Blog>{
+    return this.service.findWithKey(key);
   }
 
   @Post()
